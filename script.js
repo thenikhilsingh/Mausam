@@ -6,6 +6,8 @@ let temperaturefeelslike = document.querySelector("#subtemp");
 let whether = document.querySelector("#whehterImg");
 let humidity = document.querySelector("#humid");
 let wind = document.querySelector("#win");
+let tempdeg = document.querySelector("#tempdeg");
+let subtempdeg = document.querySelector("#subtempdeg");
 
 async function getWhetherInfo(cityname) {
   try {
@@ -37,15 +39,22 @@ searchbtn.addEventListener("keypress", async (e) => {
     let { locationName, temperatureNum, temperatureFeels, humidnum, windnum } =
       await getWhetherInfo(cityname);
     locationDisplay.innerHTML = locationName;
-    temperature.innerHTML = temperatureNum;
-
-    temperaturefeelslike.innerHTML = temperatureFeels;
-
-    if ((weatherdisc = "clear sky")) {
-      whether.src = "Assets/clear sky day.svg";
-    } else if ((weatherdisc = "")) {
-      whether.src = "Assets/";
+    function kelvinToCelcius(temperatureNum) {
+      let cel = temperatureNum - 273.15;
+      return cel.toFixed(2);
     }
+    function kelvinToCelcius(temperatureFeels) {
+      let cel = temperatureFeels - 273.15;
+      return cel.toFixed(2);
+    }
+    temperature.innerHTML = kelvinToCelcius(temperatureNum);
+    temperaturefeelslike.innerHTML = kelvinToCelcius(temperatureFeels);
+
+    // if ((weatherdisc = "clear sky")) {
+    //   whether.src = "Assets/clear sky day.svg";
+    // } else if ((weatherdisc = "")) {
+    //   whether.src = "Assets/";
+    // }
 
     humidity.innerHTML = humidnum;
 
@@ -54,12 +63,54 @@ searchbtn.addEventListener("keypress", async (e) => {
 });
 
 async function defaultSettings() {
-    let cityname="delhi"
+  let cityname = "delhi";
   let { locationName, temperatureNum, temperatureFeels, humidnum, windnum } =
     await getWhetherInfo(cityname);
-  temperature.innerHTML = temperatureNum;
-  temperaturefeelslike.innerHTML = temperatureFeels;
+  function kelvinToCelcius(temperatureNum) {
+    let cel = temperatureNum - 273.15;
+    return cel.toFixed(2);
+  }
+  function kelvinToCelcius(temperatureFeels) {
+    let cel = temperatureFeels - 273.15;
+    return cel.toFixed(2);
+  }
+  temperature.innerHTML = kelvinToCelcius(temperatureNum);
+  temperaturefeelslike.innerHTML = kelvinToCelcius(temperatureFeels);
   humidity.innerHTML = humidnum;
   wind.innerHTML = windnum;
 }
-defaultSettings()
+defaultSettings();
+
+let tempChangBtnflag = false;
+tempChangBtn.addEventListener("click", () => {
+  if (tempChangBtnflag == false) {
+    tempChangBtnflag = true;
+    tempChangBtn.innerHTML = "F";
+    function celtofar() {
+      let cel = temperature.innerHTML;
+      let far = (9 / 5) * cel + 32;
+      temperature.innerHTML = far;
+      let celfeel = temperaturefeelslike.innerHTML;
+      let farfeel = (9 / 5) * celfeel + 32;
+      temperaturefeelslike.innerHTML = farfeel;
+      tempdeg.innerHTML = "F";
+      subtempdeg.innerHTML = "F";
+    }
+    celtofar();
+  } else {
+    tempChangBtnflag = false;
+    tempChangBtn.innerHTML = "C";
+    function fartocel() {
+      let far = temperature.innerHTML;
+      let cel = ((far - 32) * 5) / 9;
+      temperature.innerHTML = cel.toFixed(2);
+
+      let farfeel = temperaturefeelslike.innerHTML;
+      let celfeel = ((farfeel - 32) * 5) / 9;
+      temperaturefeelslike.innerHTML = celfeel.toFixed(2);
+      tempdeg.innerHTML = "C";
+      subtempdeg.innerHTML = "C";
+    }
+    fartocel();
+  }
+});
