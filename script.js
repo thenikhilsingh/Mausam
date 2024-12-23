@@ -52,3 +52,14 @@ searchbtn.addEventListener("keypress", async (e) => {
     wind.innerHTML = windnum;
   }
 });
+
+async function defaultSettings() {
+    let cityname="delhi"
+  let { locationName, temperatureNum, temperatureFeels, humidnum, windnum } =
+    await getWhetherInfo(cityname);
+  temperature.innerHTML = temperatureNum;
+  temperaturefeelslike.innerHTML = temperatureFeels;
+  humidity.innerHTML = humidnum;
+  wind.innerHTML = windnum;
+}
+defaultSettings()
