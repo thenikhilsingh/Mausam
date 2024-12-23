@@ -1,3 +1,6 @@
+* {
+  font-family: "Comfortaa", serif;
+}
 body {
   display: flex;
   justify-content: center;
@@ -40,12 +43,22 @@ body {
   border: none;
   color: black;
 }
+
+.tempChangBtn:hover {
+  background-color: rgb(219, 217, 217);
+}
+
+.tempChangBtn:active {
+  background-color: grey;
+}
+
 .searchbtn {
   background-color: white;
   border-radius: 15px;
   width: 70%;
   height: 40%;
   border: none;
+  text-align: center;
 }
 
 .darkLightMode {
