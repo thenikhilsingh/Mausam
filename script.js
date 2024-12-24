@@ -109,10 +109,10 @@ tempChangBtn.addEventListener("click", () => {
     function celtofar() {
       let cel = temperature.innerHTML;
       let far = (9 / 5) * cel + 32;
-      temperature.innerHTML = far;
+      temperature.innerHTML = far.toFixed(2);
       let celfeel = temperaturefeelslike.innerHTML;
       let farfeel = (9 / 5) * celfeel + 32;
-      temperaturefeelslike.innerHTML = farfeel;
+      temperaturefeelslike.innerHTML = farfeel.toFixed(2);
       tempdeg.innerHTML = "F";
       subtempdeg.innerHTML = "F";
     }
