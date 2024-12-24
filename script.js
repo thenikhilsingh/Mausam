@@ -12,6 +12,13 @@ let subtempdeg = document.querySelector("#subtempdeg");
 
 async function getWhetherInfo(cityname) {
   try {
+    locationDisplay.innerHTML = "loading";
+    temperature.innerHTML = "00";
+    temperaturefeelslike.innerHTML = "00";
+    whetherIcon.src = "Assets/reload.png";
+    weatherdiscCont.innerHTML = "";
+    humidity.innerHTML = "00";
+    wind.innerHTML = "00";
     let api = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=f94434843b14b71ab4f3f892f5377fa4`;
     let response = await fetch(api);
     let whetherInfo = await response.json();
@@ -54,7 +61,6 @@ searchbtn.addEventListener("keypress", async (e) => {
       humidnum,
       windnum,
     } = await getWhetherInfo(cityname);
-    locationDisplay.innerHTML = locationName;
     function kelvinToCelcius(temperatureNum) {
       let cel = temperatureNum - 273.15;
       return cel.toFixed(2);
@@ -63,6 +69,7 @@ searchbtn.addEventListener("keypress", async (e) => {
       let cel = temperatureFeels - 273.15;
       return cel.toFixed(2);
     }
+    locationDisplay.innerHTML = locationName;
     temperature.innerHTML = kelvinToCelcius(temperatureNum);
     temperaturefeelslike.innerHTML = kelvinToCelcius(temperatureFeels);
     whetherIcon.src = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
