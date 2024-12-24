@@ -63,6 +63,14 @@ searchbtn.addEventListener("keypress", async (e) => {
     weatherdiscCont.innerHTML = weatherdisc;
     humidity.innerHTML = humidnum;
     wind.innerHTML = windnum;
+  } else {
+    locationDisplay.innerHTML = "Error";
+    temperature.innerHTML = "00";
+    temperaturefeelslike.innerHTML = "00";
+    whetherIcon.src = "Assets/error-404.png";
+    weatherdiscCont.innerHTML = "";
+    humidity.innerHTML = "00";
+    wind.innerHTML = "00";
   }
 });
 
