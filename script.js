@@ -3,7 +3,8 @@ let tempChangBtn = document.querySelector(".tempChangBtn");
 let locationDisplay = document.querySelector(".cont2");
 let temperature = document.querySelector("#temp");
 let temperaturefeelslike = document.querySelector("#subtemp");
-let whether = document.querySelector("#whehterImg");
+let whetherIcon = document.querySelector("#whehterImg");
+let weatherdiscCont = document.querySelector(".weatherdiscCont");
 let humidity = document.querySelector("#humid");
 let wind = document.querySelector("#win");
 let tempdeg = document.querySelector("#tempdeg");
@@ -18,6 +19,7 @@ async function getWhetherInfo(cityname) {
     let temperatureNum = whetherInfo.main.temp;
     let temperatureFeels = whetherInfo.main.feels_like;
     let weatherdisc = whetherInfo.weather[0].main;
+    let weatherIcon = whetherInfo.weather[0].icon;
     let humidnum = whetherInfo.main.humidity;
     let windnum = whetherInfo.wind.deg;
     return {
@@ -25,6 +27,7 @@ async function getWhetherInfo(cityname) {
       temperatureNum,
       temperatureFeels,
       weatherdisc,
+      weatherIcon,
       windnum,
       humidnum,
     };
@@ -36,8 +39,15 @@ async function getWhetherInfo(cityname) {
 searchbtn.addEventListener("keypress", async (e) => {
   if (e.key == "Enter") {
     let cityname = searchbtn.value;
-    let { locationName, temperatureNum, temperatureFeels, humidnum, windnum } =
-      await getWhetherInfo(cityname);
+    let {
+      locationName,
+      temperatureNum,
+      temperatureFeels,
+      weatherdisc,
+      weatherIcon,
+      humidnum,
+      windnum,
+    } = await getWhetherInfo(cityname);
     locationDisplay.innerHTML = locationName;
     function kelvinToCelcius(temperatureNum) {
       let cel = temperatureNum - 273.15;
@@ -49,23 +59,25 @@ searchbtn.addEventListener("keypress", async (e) => {
     }
     temperature.innerHTML = kelvinToCelcius(temperatureNum);
     temperaturefeelslike.innerHTML = kelvinToCelcius(temperatureFeels);
-
-    // if ((weatherdisc = "clear sky")) {
-    //   whether.src = "Assets/clear sky day.svg";
-    // } else if ((weatherdisc = "")) {
-    //   whether.src = "Assets/";
-    // }
-
+    whetherIcon.src = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+    weatherdiscCont.innerHTML = weatherdisc;
     humidity.innerHTML = humidnum;
-
     wind.innerHTML = windnum;
   }
 });
 
 async function defaultSettings() {
   let cityname = "delhi";
-  let { locationName, temperatureNum, temperatureFeels, humidnum, windnum } =
-    await getWhetherInfo(cityname);
+  let {
+    locationName,
+    temperatureNum,
+    temperatureFeels,
+    weatherIcon,
+    weatherdisc,
+    humidnum,
+    windnum,
+  } = await getWhetherInfo(cityname);
+  locationDisplay.innerHTML = locationName;
   function kelvinToCelcius(temperatureNum) {
     let cel = temperatureNum - 273.15;
     return cel.toFixed(2);
@@ -76,6 +88,8 @@ async function defaultSettings() {
   }
   temperature.innerHTML = kelvinToCelcius(temperatureNum);
   temperaturefeelslike.innerHTML = kelvinToCelcius(temperatureFeels);
+  whetherIcon.src = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+  weatherdiscCont.innerHTML = weatherdisc;
   humidity.innerHTML = humidnum;
   wind.innerHTML = windnum;
 }
