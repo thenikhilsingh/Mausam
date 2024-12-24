@@ -63,7 +63,7 @@ searchbtn.addEventListener("keypress", async (e) => {
     weatherdiscCont.innerHTML = weatherdisc;
     humidity.innerHTML = humidnum;
     wind.innerHTML = windnum;
-  } else {
+  } else if (e.key == "Enter") {
     locationDisplay.innerHTML = "Error";
     temperature.innerHTML = "00";
     temperaturefeelslike.innerHTML = "00";
