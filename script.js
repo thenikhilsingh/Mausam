@@ -15,7 +15,7 @@ async function getWhetherInfo(cityname) {
     locationDisplay.innerHTML = "loading";
     temperature.innerHTML = "00";
     temperaturefeelslike.innerHTML = "00";
-    whetherIcon.src = "Assets/reload.png";
+    whetherIcon.src = "Assets/hourglass.gif";
     weatherdiscCont.innerHTML = "";
     humidity.innerHTML = "00";
     wind.innerHTML = "00";
